@@ -12,8 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Button, Dropdown } from "@themesberg/react-bootstrap";
 import { GeneralInfoForm } from "../components/Forms";
-
-
+import { Link } from "react-router-dom";
+import { Routes } from "../routes";
 export default () => {
   return (
     <>
@@ -29,7 +29,10 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item>
-              <FontAwesomeIcon icon={faBoxOpen} className="me-2" /> Add Devices
+              <Button  as={Link} to={Routes.addDevice.path}>
+                <FontAwesomeIcon icon={faBoxOpen} className="me-2" /> Add
+                Devices
+              </Button>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

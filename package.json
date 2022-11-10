@@ -13,7 +13,7 @@
     "bootstrap 5 dashboard"
   ],
   "license": "MIT",
-  "homepage": "https://smallbuzz/smallbuzz-admin",
+  "homepage": "https://smallbuzz/SB-Admin",
   "bugs": {
     "url": "https://github.com/SmallBuz/issues"
   },
@@ -43,6 +43,7 @@
     "react-datetime": "^3.0.4",
     "react-dom": "^16.13.1",
     "react-github-btn": "^1.2.0",
+    "react-hook-form": "^7.39.2",
     "react-live": "^2.2.3",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.3.1",
