@@ -110,7 +110,7 @@ export default () => {
               </div>
               <div className="d-flex justify-content-center flex-column mb-6 mb-lg-5 mt-5">
                 <div className="text-center">
-                  <a href="https://themesberg.com" target="_blank">
+                  <a href="https://themesberg.com" target="_blank" rel="noopener noreferrer">
                    
                   </a>
                 </div>
