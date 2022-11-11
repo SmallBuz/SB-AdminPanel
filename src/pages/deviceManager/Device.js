@@ -9,7 +9,7 @@ export default () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    if (data.password == data.confirmpassword) {
+    if (data.password === data.confirmpassword) {
       console.log(data);
     }
   };
@@ -76,7 +76,7 @@ export default () => {
                             message: "Password must have at least 8 characters",
                           },
                           validate: (val) => {
-                            if (watch("password") != val) {
+                            if (watch("password") !== val) {
                               return "Your passwords dont match";
                             }
                           },
