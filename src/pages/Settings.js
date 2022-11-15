@@ -11,9 +11,10 @@ import {
   faStore,
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Button, Dropdown } from "@themesberg/react-bootstrap";
-import { GeneralInfoForm } from "../components/Forms";
 import { Link } from "react-router-dom";
 import { Routes } from "../routes";
+import DeviceList from "./deviceManager/DeviceList";
+
 export default () => {
   return (
     <>
@@ -29,7 +30,7 @@ export default () => {
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item>
-              <Button  as={Link} to={Routes.addDevice.path}>
+              <Button as={Link} to={Routes.addDevice.path}>
                 <FontAwesomeIcon icon={faBoxOpen} className="me-2" /> Add
                 Devices
               </Button>
@@ -74,9 +75,9 @@ export default () => {
         </div>
       </div>
 
-      <Row>
-        <Col xs={12} xl={8}>
-          <GeneralInfoForm />
+      <Row >
+        <Col xs={12}>
+          <DeviceList />
         </Col>
       </Row>
     </>

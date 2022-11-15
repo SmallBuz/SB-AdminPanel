@@ -1,7 +1,9 @@
 export const Routes = {
   // pages
   Presentation: { path: "/" },
+  
   DashboardOverview: { path: "/dashboard/overview" },
+  Profile: { path: "/profile" },
   Orders: { path: "/orders" },
   Transactions: { path: "/transactions" },
   Settings: { path: "/settings" },
@@ -9,15 +11,17 @@ export const Routes = {
   BootstrapTables: { path: "/tables/bootstrap-tables" },
   Billing: { path: "/examples/billing" },
   Invoice: { path: "/examples/invoice" },
-  Signin: { path: "/examples/sign-in" },
-  Signup: { path: "/examples/sign-up" },
+  Signin: { path: "/sign-in" },
+  Signup: { path: "/sign-up" },
   ForgotPassword: { path: "/examples/forgot-password" },
   ResetPassword: { path: "/examples/reset-password" },
   Lock: { path: "/examples/lock" },
-  NotFound: { path: "/examples/404" },
-  ServerError: { path: "/examples/500" },
+  NotFound: { path: "/404" },
+  ServerError: { path: "/500" },
   // Sub-pages
   addDevice: { path: "/add-device" },
+  viewDevice: { path: "/view-device/:id" },
+  editDevice: { path: "/edit-device/:id" },
   // docs
   DocsOverview: { path: "/documentation/overview" },
   DocsDownload: { path: "/documentation/download" },

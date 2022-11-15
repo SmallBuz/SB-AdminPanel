@@ -8,6 +8,8 @@ import ReactLogoTransparent from "../../assets/img/technologies/react-logo-trans
 
 
 export default () => {
+
+
   return (
     <article>
       <Container className="px-0">

@@ -251,11 +251,9 @@ export const RankingTable = () => {
   );
 };
 export const OrdersTable = (props) => {
-  console.log("content:", props.componentDataSource);
   const totalTransactions = props.length;
 
   const TableRow = (componentDataSource) => {
-    //console.log("Props:", props)
     const {
       invoiceNumber,
       nameOrder,
@@ -266,8 +264,7 @@ export const OrdersTable = (props) => {
       dueDate,
       status,
     } = componentDataSource;
-    console.log("BigLog:", componentDataSource);
-    console.log("nameOrder:", nameOrder);
+
     const statusVariant =
       status === "Paid"
         ? "success"
@@ -372,6 +369,166 @@ export const OrdersTable = (props) => {
     </Card>
   );
 };
+
+export const DevicesTable = (props) => {
+  const totalTransactions = props.length;
+
+  const TableRow = (componentDataSource) => {
+    console.log(componentDataSource)
+    const {
+      user_device_uuid,
+      user_device_user_name
+    } = componentDataSource;
+
+
+
+    return (
+      <tr>
+        <td>
+          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
+            {user_device_uuid}
+          </Card.Link>
+        </td>
+        <td>
+          <span className="fw-normal">{user_device_user_name}</span>
+        </td>{" "}
+        <td>
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              as={Button}
+              split
+              variant="link"
+              className="text-dark m-0 p-0"
+            >
+              <span className="icon icon-sm">
+                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
+              </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to={`/view-device/${user_device_uuid}` } >
+                <FontAwesomeIcon  icon={faEye} className="me-2"  />
+                View Device
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/edit-device/${user_device_uuid}`} >
+                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </td>
+      </tr>
+    );
+  };
+
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+            <tr>
+              <th className="border-bottom">#</th>
+              <th className="border-bottom">Device Name</th>
+              <th className="border-bottom">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.componentDataSource.map((t) => (
+              <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />
+            ))}
+          </tbody>
+        </Table>
+        <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
+          <Nav>
+            <Pagination className="mb-2 mb-lg-0">
+              <Pagination.Prev>Previous</Pagination.Prev>
+              <Pagination.Item active>1</Pagination.Item>
+              <Pagination.Item>2</Pagination.Item>
+              <Pagination.Item>3</Pagination.Item>
+              <Pagination.Item>4</Pagination.Item>
+              <Pagination.Item>5</Pagination.Item>
+              <Pagination.Next>Next</Pagination.Next>
+            </Pagination>
+          </Nav>
+          <small className="fw-bold">
+            Showing <b>{totalTransactions}</b> out of <b>25</b> entries
+          </small>
+        </Card.Footer>
+      </Card.Body>
+    </Card>
+  );
+};
+
+
+
+export const OneDeviceTable = (props) => {
+
+  const TableRow = (componentDataSource) => {
+    console.log(componentDataSource)
+    const {
+      user_device_uuid,
+      user_device_user_name
+    } = componentDataSource;
+
+
+
+    return (
+      <tr>
+        <td>
+          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
+            {user_device_uuid}
+          </Card.Link>
+        </td>
+        <td>
+          <span className="fw-normal">{user_device_user_name}</span>
+        </td>{" "}
+        <td>
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              as={Button}
+              split
+              variant="link"
+              className="text-dark m-0 p-0"
+            >
+              <span className="icon icon-sm">
+                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
+              </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <FontAwesomeIcon href="/a" icon={faEye} className="me-2" />
+                View Device
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </td>
+      </tr>
+    );
+  };
+
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+            <tr>
+              <th className="border-bottom">#</th>
+              <th className="border-bottom">Device Name</th>
+              <th className="border-bottom">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.componentDataSource.map((t) => (
+              <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />
+            ))}
+          </tbody>
+        </Table>
+      </Card.Body>
+    </Card>
+  );
+};
+
 export const TransactionsTable = (props) => {
   const totalTransactions = props.length;
 
