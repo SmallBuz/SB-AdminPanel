@@ -392,7 +392,8 @@ export const DevicesTable = (props) => {
         </td>
         <td>
           <span className="fw-normal">{userName}</span>
-        </td>{" "}
+        </td>
+        {""}
         <td>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle
@@ -419,7 +420,6 @@ export const DevicesTable = (props) => {
       </tr>
     );
   };
-
   return (
     <Card border="light" className="table-wrapper table-responsive shadow-sm">
       <Card.Body className="pt-0">
@@ -432,8 +432,8 @@ export const DevicesTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {props.componentDataSource.map((t) => (
-              <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />
+            {props.componentDataSource.map((t, index) => (
+              <TableRow key={`transaction-${index}`} {...t} />
             ))}
           </tbody>
         </Table>
@@ -457,7 +457,6 @@ export const DevicesTable = (props) => {
                   {index + 1}
                 </Pagination.Item>
               ))}
-
               <Pagination.Next
                 onClick={() => {
                   if (actualPage !== nPages) {
@@ -465,7 +464,7 @@ export const DevicesTable = (props) => {
                   }
                 }}
               >
-                Next
+                {"Next"}
               </Pagination.Next>
             </Pagination>
           </Nav>
