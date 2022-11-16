@@ -2,6 +2,8 @@ import React, { useCallback, useEffect } from "react";
 import { Col, Row, Card, Form, Button } from "@themesberg/react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Routes } from "../../routes";
 
 export default (props) => {
   const {
@@ -12,7 +14,7 @@ export default (props) => {
     formState: { errors },
   } = useForm();
   let API = process.env.REACT_APP_API_URL;
-
+  const history = useHistory();
   const device_id = props.match.params.id;
 
   const fetchData = useCallback(async () => {
@@ -55,7 +57,26 @@ export default (props) => {
       );
       if (APIresponse) {
         console.log(APIresponse);
+        history.replace(Routes.DashboardOverview.path);
       }
+    }
+  }
+
+  async function onDelete() {
+    let payload = {
+      device_uuid: device_id,
+    };
+
+    const APIresponse = await axios.post(
+      `${API}/userDevice/removeOneDevice`,
+      payload,
+      {
+        withCredentials: true,
+      }
+    );
+    if (APIresponse) {
+      console.log(APIresponse);
+      history.replace(Routes.DashboardOverview.path);
     }
   }
   return (
@@ -143,7 +164,11 @@ export default (props) => {
                   </Button>
                 </div>
                 <div className="mt-3">
-                  <Button variant="danger" type="submit">
+                  <Button
+                    variant="danger"
+                    type="submit"
+                    onClick={handleSubmit(onDelete)}
+                  >
                     Delete
                   </Button>
                 </div>

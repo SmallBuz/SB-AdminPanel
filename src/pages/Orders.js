@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
+import { useErrorStatus } from "../core/api-handler/api-handler";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faCog,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
@@ -18,6 +16,37 @@ import {
 import { OrdersTable } from "../components/Tables";
 import fakedatatrans1 from "../data/fakedatatrans1";
 export default () => {
+  const [userArchives, setuserArchives] = useState([]);
+  const { setErrorStatusCode } = useErrorStatus();
+  const [usePage] = useState(1);
+  const fetchData = useCallback(async () => {
+    let API = process.env.REACT_APP_API_URL;
+    try {
+      const APIresponse = await axios.get(
+        `${API}/userArchives/GetAllUserArchives?page=${usePage}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (APIresponse) {
+        console.log(APIresponse.data);
+        setuserArchives(APIresponse.data);
+      }
+    } catch (error) {
+      if (error.response) {
+        setErrorStatusCode(error.response.status);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  }, [setErrorStatusCode, usePage]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <>
       <div className="table-settings mb-4">
@@ -59,8 +88,11 @@ export default () => {
           </Col>
         </Row>
       </div>
-
-      <OrdersTable componentDataSource={fakedatatrans1} />
+      {userArchives.archives?.length > 0 ? (
+        <OrdersTable componentDataSource={fakedatatrans1} />
+      ) : (
+        "No se encontraron registros"
+      )}
     </>
   );
 };

@@ -143,9 +143,7 @@
         color: $secondary;
     }
 
-    img {
-        height: 27px;
-    }
+  
 }
 
 // Navbar text and logo dark & light
@@ -484,4 +482,9 @@
         right: -5px;
         top: -5px;
     }
+}
+
+.navbar{
+    padding-top: 0px;
+    padding-bottom: 0px;
 }

@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChartPie,
   faCog,
   faHandHoldingUsd,
   faSignOutAlt,
@@ -24,7 +23,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { Routes } from "../routes";
-import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
+import CompanyLogo from "../assets/img/technologies/company-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
 
 export default (props = {}) => {
@@ -78,22 +77,21 @@ export default (props = {}) => {
       : "";
     const navItemClassName = link === pathname ? "active" : "";
     const linkProps = external ? { href: link } : { as: Link, to: link };
-
     return (
       <Nav.Item className={navItemClassName} onClick={() => setShow(false)}>
         <Nav.Link {...linkProps} target={target} className={classNames}>
-          <span>
+          <span className={image === CompanyLogo ? "image-center" : ""}>
             {icon ? (
-              <span className="sidebar-icon">
+              <span className="sidebar-icon ">
                 <FontAwesomeIcon icon={icon} />{" "}
               </span>
             ) : null}
             {image ? (
               <Image
                 src={image}
-                width={20}
-                height={20}
-                className="sidebar-icon svg-icon"
+                width={150}
+                height={150}
+                className="sidebar-icon svg-icon "
               />
             ) : null}
 
@@ -127,7 +125,12 @@ export default (props = {}) => {
           as={Link}
           to={Routes.DashboardOverview.path}
         >
-          <Image src={ReactHero} className="navbar-brand-light" />
+          <Image
+            src={CompanyLogo}
+            width={100}
+            height={100}
+            className="navbar-brand-light"
+          />
         </Navbar.Brand>
         <Navbar.Toggle
           as={Button}
@@ -171,38 +174,17 @@ export default (props = {}) => {
                 <FontAwesomeIcon icon={faTimes} />
               </Nav.Link>
             </div>
-            <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem
-                title="SmallPanel"
-                link={Routes.Presentation.path}
-                image={ReactHero}
-              />
+            <Nav className="flex-column pt-5 pt-md-0 ">
+              <NavItem link={Routes.indexDashboard.path} image={CompanyLogo} />
 
-              <NavItem
-                title="Overview"
-                link={Routes.DashboardOverview.path}
-                icon={faChartPie}
-              />
               <CollapsableNavItem
                 eventKey="orders/"
-                title="Order Dashboard"
+                title="Order Manager"
                 icon={faTable}
               >
                 <NavItem
-    
                   title="Overview"
                   link={Routes.Orders.path}
-                  icon={faInbox}
-                />
-
-                <NavItem
-                  link={Routes.Orders.path}
-                  title="Status"
-                  icon={faInbox}
-                />
-                <NavItem
-                  link={Routes.Orders.path}
-                  title="Pending"
                   icon={faInbox}
                 />
               </CollapsableNavItem>

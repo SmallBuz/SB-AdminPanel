@@ -258,7 +258,6 @@ export const OrdersTable = (props) => {
       invoiceNumber,
       nameOrder,
       progress,
-
       price,
       issueDate,
       dueDate,
@@ -281,6 +280,9 @@ export const OrdersTable = (props) => {
             {invoiceNumber}
           </Card.Link>
         </td>
+        <td>
+          <span className="fw-normal">{nameOrder}</span>
+        </td>{" "}
         <td>
           <span className="fw-normal">{nameOrder}</span>
         </td>{" "}
@@ -334,6 +336,7 @@ export const OrdersTable = (props) => {
             <tr>
               <th className="border-bottom">#</th>
               <th className="border-bottom">Order Name</th>
+              <th className="border-bottom">POS</th>
               <th className="border-bottom">Status</th>
               <th className="border-bottom">Progress</th>
               <th className="border-bottom">Price</th>
@@ -371,26 +374,24 @@ export const OrdersTable = (props) => {
 };
 
 export const DevicesTable = (props) => {
-  const totalTransactions = props.length;
-
+  const totalTransactions = props.lengthtotal;
+  const actualQuery = props.length;
+  const recordsPerPage = 10;
+  const nPages = Math.ceil(totalTransactions / recordsPerPage);
+  const actualPage = props.actualPage;
+  const setPage = props.setPage;
   const TableRow = (componentDataSource) => {
-    console.log(componentDataSource)
-    const {
-      user_device_uuid,
-      user_device_user_name
-    } = componentDataSource;
-
-
+    const { uuid, userName } = componentDataSource;
 
     return (
       <tr>
         <td>
           <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {user_device_uuid}
+            {uuid}
           </Card.Link>
         </td>
         <td>
-          <span className="fw-normal">{user_device_user_name}</span>
+          <span className="fw-normal">{userName}</span>
         </td>{" "}
         <td>
           <Dropdown as={ButtonGroup}>
@@ -405,11 +406,11 @@ export const DevicesTable = (props) => {
               </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item as={Link} to={`/view-device/${user_device_uuid}` } >
-                <FontAwesomeIcon  icon={faEye} className="me-2"  />
+              <Dropdown.Item as={Link} to={`/view-device/${uuid}`}>
+                <FontAwesomeIcon icon={faEye} className="me-2" />
                 View Device
               </Dropdown.Item>
-              <Dropdown.Item as={Link} to={`/edit-device/${user_device_uuid}`} >
+              <Dropdown.Item as={Link} to={`/edit-device/${uuid}`}>
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -425,7 +426,7 @@ export const DevicesTable = (props) => {
         <Table hover className="user-table align-items-center">
           <thead>
             <tr>
-              <th className="border-bottom">#</th>
+              <th className="border-bottom">uuid</th>
               <th className="border-bottom">Device Name</th>
               <th className="border-bottom">Action</th>
             </tr>
@@ -439,17 +440,38 @@ export const DevicesTable = (props) => {
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
           <Nav>
             <Pagination className="mb-2 mb-lg-0">
-              <Pagination.Prev>Previous</Pagination.Prev>
-              <Pagination.Item active>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Item>4</Pagination.Item>
-              <Pagination.Item>5</Pagination.Item>
-              <Pagination.Next>Next</Pagination.Next>
+              <Pagination.Prev
+                onClick={() => {
+                  if (actualPage > 1) {
+                    setPage(actualPage - 1);
+                  }
+                }}
+              >
+                Previous
+              </Pagination.Prev>
+              {[...Array(nPages)].map((_elementInArray, index) => (
+                <Pagination.Item
+                  active={index + 1 === actualPage ? true : false}
+                  onClick={() => setPage(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+
+              <Pagination.Next
+                onClick={() => {
+                  if (actualPage !== nPages) {
+                    setPage(actualPage + 1);
+                  }
+                }}
+              >
+                Next
+              </Pagination.Next>
             </Pagination>
           </Nav>
           <small className="fw-bold">
-            Showing <b>{totalTransactions}</b> out of <b>25</b> entries
+            Showing <b>{actualQuery}</b> out of <b>{totalTransactions}</b>{" "}
+            entries
           </small>
         </Card.Footer>
       </Card.Body>
@@ -457,18 +479,10 @@ export const DevicesTable = (props) => {
   );
 };
 
-
-
 export const OneDeviceTable = (props) => {
-
   const TableRow = (componentDataSource) => {
-    console.log(componentDataSource)
-    const {
-      user_device_uuid,
-      user_device_user_name
-    } = componentDataSource;
-
-
+    console.log(componentDataSource);
+    const { user_device_uuid, user_device_user_name } = componentDataSource;
 
     return (
       <tr>

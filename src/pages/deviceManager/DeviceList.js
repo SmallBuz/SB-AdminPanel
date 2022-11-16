@@ -8,16 +8,18 @@ import { useErrorStatus } from "../../core/api-handler/api-handler";
 export default () => {
   const [userDevices, setUserDevices] = useState([]);
   const { setErrorStatusCode } = useErrorStatus();
+  const [usePage, setUsePage] = useState(1);
   const fetchData = useCallback(async () => {
     let API = process.env.REACT_APP_API_URL;
     try {
       const APIresponse = await axios.get(
-        `${API}/userDevice/getAllUserDevices`,
+        `${API}/userDevice/getAllUserDevices?page=${usePage}`,
         {
           withCredentials: true,
         }
       );
       if (APIresponse) {
+        console.log(APIresponse.data);
         setUserDevices(APIresponse.data);
       }
     } catch (error) {
@@ -30,7 +32,7 @@ export default () => {
       }
       console.log(error.config);
     }
-  }, [setErrorStatusCode]);
+  }, [setErrorStatusCode, usePage]);
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -42,8 +44,15 @@ export default () => {
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
               <h5 className="mb-4">Devices List</h5>
-              {userDevices.length > 0 ? (
-                <DevicesTable componentDataSource={userDevices} />
+              {userDevices.users?.length > 0 ? (
+                <DevicesTable
+                  componentDataSource={userDevices?.users}
+                  length={userDevices?.users?.length}
+                  lengthtotal={userDevices?.itemCount}
+                  actualPage={usePage}
+                  
+                  setPage = {setUsePage}
+                />
               ) : (
                 "No se encontraron registros"
               )}
