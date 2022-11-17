@@ -26,18 +26,16 @@ const ServerError = () => {
                 It's always time for a coffee break. We should be back by the
                 time you finish your coffee.
               </p>
-              <Button
-                as={Link}
-                variant="primary"
-                className="animate-hover"
-                to={Routes.DashboardOverview.path}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronLeft}
-                  className="animate-left-3 me-3 ms-2"
-                />
-                Go back home
-              </Button>
+
+              <Link to={Routes.DashboardOverview.path}>
+                <Button variant="primary" className="animate-hover">
+                  <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    className="animate-left-3 me-3 ms-2"
+                  />
+                  Go back home
+                </Button>
+              </Link>
             </Col>
             <Col
               xs={12}

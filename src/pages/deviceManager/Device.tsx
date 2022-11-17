@@ -1,47 +1,18 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { Col, Row, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { Routes } from "../../routes";
 
-const DeviceEditPage = (props) => {
+const Device = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     formState: { errors },
   } = useForm();
   let API = process.env.REACT_APP_API_URL;
-  const history = useHistory();
-  const device_id = props.match.params.id;
 
-  const fetchData = useCallback(async () => {
-    let API = process.env.REACT_APP_API_URL;
-    const APIresponse = await axios.post(
-      `${API}/userDevice/getOneDevice`,
-      {
-        userDeviceName: device_id,
-      },
-
-      {
-        withCredentials: true,
-      }
-    );
-    if (APIresponse) {
-      const dataRes = APIresponse.data;
-
-      setValue("devicename", dataRes["userName"]);
-      setValue("password", dataRes["userPassword"]);
-      setValue("confirmpassword", dataRes["userPassword"]);
-    }
-  }, [setValue, device_id]);
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  async function onSubmit(data) {
+  async function onSubmit(data:any) {
     let payload = {
       userName: data.devicename,
       userPassword: data.password,
@@ -57,26 +28,7 @@ const DeviceEditPage = (props) => {
       );
       if (APIresponse) {
         console.log(APIresponse);
-        history.replace(Routes.DashboardOverview.path);
       }
-    }
-  }
-
-  async function onDelete() {
-    let payload = {
-      device_uuid: device_id,
-    };
-
-    const APIresponse = await axios.post(
-      `${API}/userDevice/removeOneDevice`,
-      payload,
-      {
-        withCredentials: true,
-      }
-    );
-    if (APIresponse) {
-      console.log(APIresponse);
-      history.replace(Routes.DashboardOverview.path);
     }
   }
   return (
@@ -85,7 +37,7 @@ const DeviceEditPage = (props) => {
         <Col xs={12} xl={8}>
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
-              <h5 className="mb-4"> Device information</h5>
+              <h5 className="mb-4"> General Device information</h5>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                   <Col md={6} className="mb-3">
@@ -124,7 +76,7 @@ const DeviceEditPage = (props) => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -152,7 +104,7 @@ const DeviceEditPage = (props) => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.confirmpassword?.message}
+                        {`${errors.confirmpassword?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -160,16 +112,7 @@ const DeviceEditPage = (props) => {
 
                 <div className="mt-3">
                   <Button variant="primary" type="submit">
-                    Update Device
-                  </Button>
-                </div>
-                <div className="mt-3">
-                  <Button
-                    variant="danger"
-                    type="submit"
-                    onClick={handleSubmit(onDelete)}
-                  >
-                    Delete
+                    Save All
                   </Button>
                 </div>
               </Form>
@@ -180,4 +123,4 @@ const DeviceEditPage = (props) => {
     </>
   );
 };
-export default DeviceEditPage;
+export default Device;

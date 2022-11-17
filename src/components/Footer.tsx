@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment-timezone";
 import { Row, Col, Card } from "react-bootstrap";
 
-const Footer = (props) => {
+const Footer = (props:any) => {
   const currentYear = moment().get("year");
 
   return (

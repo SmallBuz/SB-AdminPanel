@@ -25,7 +25,7 @@ import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import { Routes } from "../routes";
 import { useErrorStatus } from "../core/api-handler/api-handler";
 
-const NavbarComponent = (props) => {
+const NavbarComponent = (props:any) => {
   const { setErrorStatusCode } = useErrorStatus();
   const [userProfile, setuserProfile] = useState("");
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
@@ -49,7 +49,7 @@ const NavbarComponent = (props) => {
       if (APIresponse) {
         setuserProfile(APIresponse["data"]["firstName"]);
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
       if (error.response) {
         setErrorStatusCode(error.response.status);
@@ -65,7 +65,7 @@ const NavbarComponent = (props) => {
     fetchData();
   }, [fetchData]);
 
-  const Notification = (props) => {
+  const Notification = (props:any) => {
     const { link, sender, image, time, message, read = false } = props;
     const readClassName = read ? "" : "text-danger";
 

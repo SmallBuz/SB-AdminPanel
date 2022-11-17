@@ -1,18 +1,47 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Col, Row, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Routes } from "../../routes";
 
-const Device = () => {
+const DeviceEditPage = (props: any) => {
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm();
   let API = process.env.REACT_APP_API_URL;
+  const history = useHistory();
+  const device_id = props.match.params.id;
 
-  async function onSubmit(data) {
+  const fetchData = useCallback(async () => {
+    let API = process.env.REACT_APP_API_URL;
+    const APIresponse = await axios.post(
+      `${API}/userDevice/getOneDevice`,
+      {
+        userDeviceName: device_id,
+      },
+
+      {
+        withCredentials: true,
+      }
+    );
+    if (APIresponse) {
+      const dataRes = APIresponse.data;
+
+      setValue("devicename", dataRes["userName"]);
+      setValue("password", dataRes["userPassword"]);
+      setValue("confirmpassword", dataRes["userPassword"]);
+    }
+  }, [setValue, device_id]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  async function onSubmit(data: any) {
     let payload = {
       userName: data.devicename,
       userPassword: data.password,
@@ -28,7 +57,26 @@ const Device = () => {
       );
       if (APIresponse) {
         console.log(APIresponse);
+        history.replace(Routes.DashboardOverview.path);
       }
+    }
+  }
+
+  async function onDelete() {
+    let payload = {
+      device_uuid: device_id,
+    };
+
+    const APIresponse = await axios.post(
+      `${API}/userDevice/removeOneDevice`,
+      payload,
+      {
+        withCredentials: true,
+      }
+    );
+    if (APIresponse) {
+      console.log(APIresponse);
+      history.replace(Routes.DashboardOverview.path);
     }
   }
   return (
@@ -37,7 +85,7 @@ const Device = () => {
         <Col xs={12} xl={8}>
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
-              <h5 className="mb-4"> General Device information</h5>
+              <h5 className="mb-4"> Device information</h5>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                   <Col md={6} className="mb-3">
@@ -76,7 +124,7 @@ const Device = () => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -104,7 +152,7 @@ const Device = () => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.confirmpassword?.message}
+                        {`${errors.confirmpassword?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -112,7 +160,16 @@ const Device = () => {
 
                 <div className="mt-3">
                   <Button variant="primary" type="submit">
-                    Save All
+                    Update Device
+                  </Button>
+                </div>
+                <div className="mt-3">
+                  <Button
+                    variant="danger"
+                    type="submit"
+                    onClick={handleSubmit(onDelete)}
+                  >
+                    Delete
                   </Button>
                 </div>
               </Form>
@@ -123,4 +180,4 @@ const Device = () => {
     </>
   );
 };
-export default Device;
+export default DeviceEditPage;

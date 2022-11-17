@@ -1,7 +1,6 @@
-import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
-const ProgressComponent = (props) => {
+const ProgressComponent = (props: any) => {
   const { label, variant, value, type = "label", size = "md" } = props;
   const finalValue = value
     ? value

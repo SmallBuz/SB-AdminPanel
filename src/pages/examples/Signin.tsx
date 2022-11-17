@@ -26,7 +26,7 @@ const Signin = () => {
   } = useForm();
   const history = useHistory();
   let API = process.env.REACT_APP_API_URL;
-  async function onSubmit(data) {
+  async function onSubmit(data: any) {
     let payload = {
       identifier: data.email,
       password: data.password,
@@ -100,7 +100,7 @@ const Signin = () => {
                         />
                       </InputGroup>
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                     <div className="d-flex justify-content-between align-items-center mb-4">

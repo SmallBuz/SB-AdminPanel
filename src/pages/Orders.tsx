@@ -15,8 +15,9 @@ import {
 
 import { OrdersTable } from "../components/Tables";
 import fakedatatrans1 from "../data/fakedatatrans1";
+
 const OrdersPage = () => {
-  const [userArchives, setuserArchives] = useState([]);
+  const [userArchives, setuserArchives] = useState<any>([]);
   const { setErrorStatusCode } = useErrorStatus();
   const [usePage] = useState(1);
   const fetchData = useCallback(async () => {
@@ -32,7 +33,7 @@ const OrdersPage = () => {
         console.log(APIresponse.data);
         setuserArchives(APIresponse.data);
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         setErrorStatusCode(error.response.status);
       } else if (error.request) {
@@ -88,7 +89,7 @@ const OrdersPage = () => {
           </Col>
         </Row>
       </div>
-      {userArchives.archives?.length > 0 ? (
+      {userArchives?.archives?.length > 0 ? (
         <OrdersTable componentDataSource={fakedatatrans1} />
       ) : (
         "No se encontraron registros"

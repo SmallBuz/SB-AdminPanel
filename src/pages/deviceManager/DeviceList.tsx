@@ -6,7 +6,7 @@ import { useEffect, useCallback, useState } from "react";
 import { useErrorStatus } from "../../core/api-handler/api-handler";
 
 const DeviceListPage = () => {
-  const [userDevices, setUserDevices] = useState([]);
+  const [userDevices, setUserDevices] = useState<any>([]);
   const { setErrorStatusCode } = useErrorStatus();
   const [usePage, setUsePage] = useState(1);
   const fetchData = useCallback(async () => {
@@ -22,7 +22,7 @@ const DeviceListPage = () => {
         console.log(APIresponse.data);
         setUserDevices(APIresponse.data);
       }
-    } catch (error) {
+    } catch (error:any) {
       if (error.response) {
         setErrorStatusCode(error.response.status);
       } else if (error.request) {

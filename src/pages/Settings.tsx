@@ -30,10 +30,12 @@ const SettingsPage = () => {
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item>
-              <Button as={Link} to={Routes.addDevice.path}>
-                <FontAwesomeIcon icon={faBoxOpen} className="me-2" />
-                {"Add Devices"}
-              </Button>
+              <Link to={Routes.addDevice.path}>
+                <Button>
+                  <FontAwesomeIcon icon={faBoxOpen} className="me-2" />
+                  {"Add Devices"}
+                </Button>
+              </Link>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

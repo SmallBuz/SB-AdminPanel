@@ -28,7 +28,7 @@ const Signup = () => {
   const history = useHistory();
   let API = process.env.REACT_APP_API_URL;
 
-  async function onSubmit(data) {
+  async function onSubmit(data: any) {
     if (data.password === data.confirmpassword) {
       let payload = {
         firstName: "firstUser",
@@ -100,9 +100,10 @@ const Signup = () => {
                       />
                     </InputGroup>
                     <div className="invalid-feedback">
-                      {errors.password?.message}
+                      {`${errors.password?.message}`}
                     </div>
                   </Form.Group>
+
                   <Form.Group id="confirmPassword" className="mb-4">
                     <Form.Label>Confirm Password</Form.Label>
                     <InputGroup
@@ -133,7 +134,7 @@ const Signup = () => {
                       />
                     </InputGroup>
                     <div className="invalid-feedback">
-                      {errors.confirmpassword?.message}
+                      {`${errors.confirmpassword?.message}`}
                     </div>
                   </Form.Group>
                   <FormCheck type="checkbox" className="d-flex mb-4">

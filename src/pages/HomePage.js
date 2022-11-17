@@ -39,7 +39,7 @@ import Tables from "./components/Tables";
 import Tabs from "./components/Tabs";
 import Tooltips from "./components/Tooltips";
 import Toasts from "./components/Toasts";
-import Device from "./deviceManager/Device.js";
+import Device from "./deviceManager/Device";
 import Profile from "./profile/Profile";
 import DeviceView from "./deviceManager/DeviceView";
 import DeviceEdit from "./deviceManager/DeviceEdit";
