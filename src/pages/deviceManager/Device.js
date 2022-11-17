@@ -3,7 +3,7 @@ import { Col, Row, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default () => {
+const Device = () => {
   const {
     register,
     handleSubmit,
@@ -12,16 +12,16 @@ export default () => {
   } = useForm();
   let API = process.env.REACT_APP_API_URL;
 
-
   async function onSubmit(data) {
     let payload = {
-      userName:data.devicename,
-      userPassword:data.password
-    }
+      userName: data.devicename,
+      userPassword: data.password,
+    };
     console.log(data);
     if (data.password === data.confirmpassword) {
       const APIresponse = await axios.post(
-        `${API}/userDevice/addOneDevice`,payload,
+        `${API}/userDevice/addOneDevice`,
+        payload,
         {
           withCredentials: true,
         }
@@ -123,3 +123,4 @@ export default () => {
     </>
   );
 };
+export default Device;

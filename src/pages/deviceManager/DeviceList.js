@@ -5,7 +5,7 @@ import { DevicesTable } from "../../components/Tables";
 import { useEffect, useCallback, useState } from "react";
 import { useErrorStatus } from "../../core/api-handler/api-handler";
 
-export default () => {
+const DeviceListPage = () => {
   const [userDevices, setUserDevices] = useState([]);
   const { setErrorStatusCode } = useErrorStatus();
   const [usePage, setUsePage] = useState(1);
@@ -50,8 +50,7 @@ export default () => {
                   length={userDevices?.users?.length}
                   lengthtotal={userDevices?.itemCount}
                   actualPage={usePage}
-                  
-                  setPage = {setUsePage}
+                  setPage={setUsePage}
                 />
               ) : (
                 "No se encontraron registros"
@@ -63,3 +62,4 @@ export default () => {
     </>
   );
 };
+export default DeviceListPage;

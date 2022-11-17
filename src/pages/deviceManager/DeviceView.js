@@ -3,7 +3,7 @@ import { Col, Row, Card, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default (props) => {
+const DeviceViewPage = (props) => {
   const {
     register,
     setValue,
@@ -96,3 +96,4 @@ export default (props) => {
     </>
   );
 };
+export default DeviceViewPage;

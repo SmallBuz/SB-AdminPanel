@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { Routes } from "../routes";
 import DeviceList from "./deviceManager/DeviceList";
 
-export default () => {
+const SettingsPage = () => {
   return (
     <>
       <div className="d-flex  flex-wrap flex-md-nowrap align-items-center py-4">
@@ -83,3 +83,4 @@ export default () => {
     </>
   );
 };
+export default SettingsPage;
