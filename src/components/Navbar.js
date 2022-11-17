@@ -18,7 +18,7 @@ import {
   Dropdown,
   Container,
   ListGroup,
-} from "@themesberg/react-bootstrap";
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NOTIFICATIONS_DATA from "../data/notifications";
 import Profile3 from "../assets/img/team/profile-picture-3.jpg";

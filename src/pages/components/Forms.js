@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import Datetime from "react-datetime";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Card, Form, Container, InputGroup } from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Form, Container, InputGroup } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 

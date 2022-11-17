@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBootstrap } from '@fortawesome/free-brands-svg-icons';
-import { Col, Row, Card, Toast, Button, Container } from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Toast, Button, Container } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 

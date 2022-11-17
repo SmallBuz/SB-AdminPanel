@@ -10,7 +10,7 @@ import {
   faRocket,
   faStore,
 } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Button, Dropdown } from "@themesberg/react-bootstrap";
+import { Col, Row, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Routes } from "../routes";
 import DeviceList from "./deviceManager/DeviceList";

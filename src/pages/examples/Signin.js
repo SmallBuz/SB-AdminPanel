@@ -10,7 +10,7 @@ import {
   FormCheck,
   Container,
   InputGroup,
-} from "@themesberg/react-bootstrap";
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Routes } from "../../routes";

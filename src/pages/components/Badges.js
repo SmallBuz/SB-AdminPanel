@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Col, Row, Badge, Button, Container } from '@themesberg/react-bootstrap';
+import { Col, Row, Badge, Button, Container } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 

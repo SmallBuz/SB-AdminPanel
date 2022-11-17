@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Row, Col, Card, Modal, Button, Container } from '@themesberg/react-bootstrap';
+import { Row, Col, Card, Modal, Button, Container } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 
