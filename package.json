@@ -1,17 +1,10 @@
 {
-  "name": "@themesberg/volt-react-dashboard",
+  "name": "smalladmin",
   "description": "smallbuzz Admin is a admin dashboard template powered by React.js and Bootstrap 5",
-  "author": "Themesberg",
+  "author": "JMJHOX",
   "proxy": "http://localhost:3000",
   "keywords": [
-    "bootstrap 5",
-    "react",
-    "react dashboard",
-    "react admin template",
-    "free react",
-    "react ui library",
-    "react bootstrap 5",
-    "bootstrap 5 dashboard"
+    "smallbuzz"
   ],
   "license": "MIT",
   "bugs": {
@@ -31,15 +24,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@themesberg/react-bootstrap": "^1.4.1",
     "axios": "^1.1.3",
-    "bootstrap": "5.0.0-beta1",
+    "bootstrap": "^5.2.2",
     "chartist": "^0.11.4",
     "chartist-plugin-tooltips-updated": "^0.1.4",
     "js-cookie": "^3.0.1",
     "moment-timezone": "^0.5.31",
     "node-sass": "^4.14.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
     "react-chartist": "^0.14.4",
     "react-copy-to-clipboard": "^5.0.3",
     "react-datetime": "^3.0.4",

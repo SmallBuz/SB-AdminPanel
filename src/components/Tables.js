@@ -23,7 +23,7 @@ import {
   ProgressBar,
   Pagination,
   ButtonGroup,
-} from "@themesberg/react-bootstrap";
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { Routes } from "../routes";

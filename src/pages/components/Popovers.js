@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Col, Row, Button, Popover, Container, OverlayTrigger } from '@themesberg/react-bootstrap';
+import { Col, Row, Button, Popover, Container, OverlayTrigger } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 

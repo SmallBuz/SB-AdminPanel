@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Col, Row, Card, Form } from "@themesberg/react-bootstrap";
+import { Col, Row, Card, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 

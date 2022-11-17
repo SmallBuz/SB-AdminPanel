@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Card } from "@themesberg/react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import axios from "axios";
 import { DevicesTable } from "../../components/Tables";
 import { useEffect, useCallback, useState } from "react";

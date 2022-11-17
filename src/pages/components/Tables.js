@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Table, Image, Container } from "@themesberg/react-bootstrap";
+import { Col, Row, Table, Image, Container } from "react-bootstrap";
 
 import Documentation from "../../components/Documentation";
 

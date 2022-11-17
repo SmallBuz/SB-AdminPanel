@@ -3,7 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLaptopCode, faPalette } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { Col, Row, Nav, Tab, Card, Container } from '@themesberg/react-bootstrap';
+import { Col, Row, Nav, Tab, Card, Container } from 'react-bootstrap';
 
 import Documentation from "../../components/Documentation";
 

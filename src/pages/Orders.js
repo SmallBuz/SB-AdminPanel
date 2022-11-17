@@ -11,7 +11,7 @@ import {
   ButtonGroup,
   InputGroup,
   Dropdown,
-} from "@themesberg/react-bootstrap";
+} from "react-bootstrap";
 
 import { OrdersTable } from "../components/Tables";
 import fakedatatrans1 from "../data/fakedatatrans1";
