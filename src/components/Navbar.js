@@ -25,7 +25,7 @@ import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import { Routes } from "../routes";
 import { useErrorStatus } from "../core/api-handler/api-handler";
 
-export default (props) => {
+const NavbarComponent = (props) => {
   const { setErrorStatusCode } = useErrorStatus();
   const [userProfile, setuserProfile] = useState("");
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
@@ -40,8 +40,6 @@ export default (props) => {
     }, 300);
   };
 
-  
-  
   const fetchData = useCallback(async () => {
     let API = process.env.REACT_APP_API_URL;
     try {
@@ -185,3 +183,4 @@ export default (props) => {
     </Navbar>
   );
 };
+export default NavbarComponent;

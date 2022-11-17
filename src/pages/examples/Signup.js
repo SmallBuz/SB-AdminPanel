@@ -18,7 +18,7 @@ import BgImage from "../../assets/img/illustrations/signin.svg";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-export default () => {
+const Signup = () => {
   const {
     register,
     handleSubmit,
@@ -195,3 +195,4 @@ export default () => {
     </main>
   );
 };
+export default Signup;

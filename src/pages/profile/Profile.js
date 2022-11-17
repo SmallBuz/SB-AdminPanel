@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Routes } from "../../routes";
 import { useErrorStatus } from "../../core/api-handler/api-handler";
 
-export default () => {
+const Profile = () => {
   const {
     register,
     handleSubmit,
@@ -173,3 +173,4 @@ export default () => {
     </>
   );
 };
+export default Profile;

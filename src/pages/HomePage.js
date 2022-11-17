@@ -17,15 +17,6 @@ import Lock from "./examples/Lock";
 import NotFoundPage from "./examples/NotFound";
 import ServerError from "./examples/ServerError";
 
-// documentation pages
-import DocsOverview from "./documentation/DocsOverview";
-import DocsDownload from "./documentation/DocsDownload";
-import DocsQuickStart from "./documentation/DocsQuickStart";
-import DocsLicense from "./documentation/DocsLicense";
-import DocsFolderStructure from "./documentation/DocsFolderStructure";
-import DocsBuild from "./documentation/DocsBuild";
-import DocsChangelog from "./documentation/DocsChangelog";
-
 // components
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -117,7 +108,7 @@ const RouteWithSidebar = ({ component: Component, ...rest }) => {
   );
 };
 
-export default () => (
+const HomePage = () => (
   <Switch>
     <RouteWithLoader exact path={Routes.Presentation.path} component={Signin} />
     <RouteWithLoader exact path={Routes.Signin.path} component={Signin} />
@@ -158,7 +149,11 @@ export default () => (
     />
     <RouteWithSidebar exact path={Routes.Orders.path} component={Orders} />
     <RouteWithSidebar exact path={Routes.Settings.path} component={Settings} />
-    <RouteWithSidebar exact path={Routes.editDevice.path} component={DeviceEdit} />
+    <RouteWithSidebar
+      exact
+      path={Routes.editDevice.path}
+      component={DeviceEdit}
+    />
     <RouteWithSidebar
       exact
       path={Routes.BootstrapTables.path}
@@ -166,7 +161,11 @@ export default () => (
     />
     <RouteWithSidebar exact path={Routes.addDevice.path} component={Device} />
     <RouteWithSidebar exact path={Routes.Profile.path} component={Profile} />
-    <RouteWithSidebar exact path={Routes.viewDevice.path} component={DeviceView} />
+    <RouteWithSidebar
+      exact
+      path={Routes.viewDevice.path}
+      component={DeviceView}
+    />
     {/* components */}
     <RouteWithSidebar
       exact
@@ -197,43 +196,7 @@ export default () => (
     <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips} />
     <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts} />
 
-    {/* documentation */}
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsOverview.path}
-      component={DocsOverview}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsDownload.path}
-      component={DocsDownload}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsQuickStart.path}
-      component={DocsQuickStart}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsLicense.path}
-      component={DocsLicense}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsFolderStructure.path}
-      component={DocsFolderStructure}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsBuild.path}
-      component={DocsBuild}
-    />
-    <RouteWithSidebar
-      exact
-      path={Routes.DocsChangelog.path}
-      component={DocsChangelog}
-    />
-
     <Redirect to={Routes.NotFound.path} />
   </Switch>
 );
+export default HomePage;
