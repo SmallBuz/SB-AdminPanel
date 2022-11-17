@@ -5,7 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Routes } from "../../routes";
 
-export default (props) => {
+const DeviceEditPage = (props) => {
   const {
     register,
     handleSubmit,
@@ -180,3 +180,4 @@ export default (props) => {
     </>
   );
 };
+export default DeviceEditPage;

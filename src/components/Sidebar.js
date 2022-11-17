@@ -27,7 +27,7 @@ import { Routes } from "../routes";
 import CompanyLogo from "../assets/img/technologies/company-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
 
-export default (props = {}) => {
+const SideBarComponent = (props = {}) => {
   const location = useLocation();
   const { pathname } = location;
   const [show, setShow] = useState(false);
@@ -214,3 +214,4 @@ export default (props = {}) => {
     </>
   );
 };
+export default SideBarComponent;

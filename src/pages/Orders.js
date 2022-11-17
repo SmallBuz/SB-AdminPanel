@@ -15,7 +15,7 @@ import {
 
 import { OrdersTable } from "../components/Tables";
 import fakedatatrans1 from "../data/fakedatatrans1";
-export default () => {
+const OrdersPage = () => {
   const [userArchives, setuserArchives] = useState([]);
   const { setErrorStatusCode } = useErrorStatus();
   const [usePage] = useState(1);
@@ -96,3 +96,4 @@ export default () => {
     </>
   );
 };
+export default OrdersPage;
