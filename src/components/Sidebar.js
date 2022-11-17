@@ -8,6 +8,7 @@ import {
   faHandHoldingUsd,
   faSignOutAlt,
   faTable,
+  faChartPie,
   faTimes,
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
@@ -120,11 +121,7 @@ export default (props = {}) => {
         variant="dark"
         className="navbar-theme-primary px-4 d-md-none"
       >
-        <Navbar.Brand
-          className="me-lg-5"
-          as={Link}
-          to={Routes.DashboardOverview.path}
-        >
+        <Navbar.Brand className="me-lg-5">
           <Image
             src={CompanyLogo}
             width={100}
@@ -175,8 +172,17 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-5 pt-md-0 ">
-              <NavItem link={Routes.indexDashboard.path} image={CompanyLogo} />
-
+              <Image
+                width={200}
+                height={200}
+                src={CompanyLogo}
+                className="card-img-top rounded-circle border-white"
+              />
+              <NavItem
+                title="Overview"
+                link={Routes.DashboardOverview.path}
+                icon={faChartPie}
+              />
               <CollapsableNavItem
                 eventKey="orders/"
                 title="Order Manager"

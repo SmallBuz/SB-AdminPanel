@@ -31,51 +31,51 @@ export default () => {
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item>
               <Button as={Link} to={Routes.addDevice.path}>
-                <FontAwesomeIcon icon={faBoxOpen} className="me-2" /> Add
-                Devices
+                <FontAwesomeIcon icon={faBoxOpen} className="me-2" />
+                {"Add Devices"}
               </Button>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-
         <div className="d-flex">
           <Dropdown>
             <Dropdown.Toggle as={Button} variant="primary">
-              <FontAwesomeIcon icon={faClipboard} className="me-2" /> Reports
+              <FontAwesomeIcon icon={faClipboard} className="me-2" />
+              {"Reports"}
               <span className="icon icon-small ms-1">
                 <FontAwesomeIcon icon={faChevronDown} />
               </span>
             </Dropdown.Toggle>
             <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-1">
               <Dropdown.Item>
-                <FontAwesomeIcon icon={faBoxOpen} className="me-2" /> Products
+                <FontAwesomeIcon icon={faBoxOpen} className="me-2" />
+                {"Products"}
               </Dropdown.Item>
               <Dropdown.Item>
-                <FontAwesomeIcon icon={faStore} className="me-2" /> Customers
+                <FontAwesomeIcon icon={faStore} className="me-2" />
+                {"Customers"}
               </Dropdown.Item>
               <Dropdown.Item>
-                <FontAwesomeIcon icon={faCartArrowDown} className="me-2" />{" "}
-                Orders
+                <FontAwesomeIcon icon={faCartArrowDown} className="me-2" />
+                {"Orders"}
               </Dropdown.Item>
               <Dropdown.Item>
-                <FontAwesomeIcon icon={faChartPie} className="me-2" /> Console
+                <FontAwesomeIcon icon={faChartPie} className="me-2" />
+                {"Console"}
               </Dropdown.Item>
-
               <Dropdown.Divider />
-
               <Dropdown.Item>
                 <FontAwesomeIcon
                   icon={faRocket}
                   className="text-success me-2"
-                />{" "}
-                All Reports
+                />
+                {"All Reports"}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
       </div>
-
-      <Row >
+      <Row>
         <Col xs={12}>
           <DeviceList />
         </Col>

@@ -1,7 +1,6 @@
 export const Routes = {
   // pages
   Presentation: { path: "/" },
-  indexDashboard: { path: "/dashboard/overview" },
   DashboardOverview: { path: "/dashboard/overview" },
   Profile: { path: "/profile" },
   Orders: { path: "/orders" },

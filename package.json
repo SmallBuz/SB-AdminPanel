@@ -39,17 +39,17 @@
     "js-cookie": "^3.0.1",
     "moment-timezone": "^0.5.31",
     "node-sass": "^4.14.1",
-    "react": "^16.13.1",
+    "react": "^18.2.0",
     "react-chartist": "^0.14.4",
     "react-copy-to-clipboard": "^5.0.3",
     "react-datetime": "^3.0.4",
-    "react-dom": "^16.13.1",
+    "react-dom": "^18.2.0",
     "react-github-btn": "^1.2.0",
     "react-hook-form": "^7.39.2",
     "react-live": "^2.2.3",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.3.1",
-    "react-scripts": "3.4.3",
+    "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.1",
     "simplebar-react": "^2.3.0"
   },
@@ -76,5 +76,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-error-overlay": "^6.0.9"
   }
 }

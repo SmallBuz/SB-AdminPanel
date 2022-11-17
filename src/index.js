@@ -1,8 +1,7 @@
-
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import {ErrorHandler} from './core/api-handler/api-handler'
+import { ErrorHandler } from "./core/api-handler/api-handler";
 // core styles
 import "./scss/volt.scss";
 
@@ -11,13 +10,13 @@ import "react-datetime/css/react-datetime.css";
 
 import HomePage from "./pages/HomePage";
 import ScrollToTop from "./components/ScrollToTop";
-
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+root.render(
   <BrowserRouter>
     <ErrorHandler>
       <ScrollToTop />
       <HomePage />
     </ErrorHandler>
-  </BrowserRouter>,
-  document.getElementById("root")
+  </BrowserRouter>
 );
