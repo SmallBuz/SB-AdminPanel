@@ -1,8 +1,8 @@
-import React from "react";
 import { Col, Row, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { Routes } from "../../../routes";
+import { useHistory } from "react-router-dom";
 const Device = () => {
   const {
     register,
@@ -11,8 +11,8 @@ const Device = () => {
     formState: { errors },
   } = useForm();
   let API = process.env.REACT_APP_API_URL;
-
-  async function onSubmit(data) {
+  const history = useHistory();
+  async function onSubmit(data: any) {
     let payload = {
       userName: data.devicename,
       userPassword: data.password,
@@ -27,7 +27,7 @@ const Device = () => {
         }
       );
       if (APIresponse) {
-        console.log(APIresponse);
+        history.push(Routes.DashboardOverview.path);
       }
     }
   }
@@ -76,7 +76,7 @@ const Device = () => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -104,7 +104,7 @@ const Device = () => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.confirmpassword?.message}
+                        {`${errors.confirmpassword?.message}`}
                       </div>
                     </Form.Group>
                   </Col>

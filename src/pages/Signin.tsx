@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -13,10 +13,12 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Routes } from "../../routes";
-import BgImage from "../../assets/img/illustrations/signin.svg";
+import { Routes } from "../routes";
+import BgImage from "../assets/img/illustrations/signin.svg";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { SigninPayload } from "./models/signin";
+import { RoleType } from "../core/utils/constants";
 
 const Signin = () => {
   const {
@@ -26,12 +28,32 @@ const Signin = () => {
   } = useForm();
   const history = useHistory();
   let API = process.env.REACT_APP_API_URL;
-  async function onSubmit(data) {
-    let payload = {
+
+  const [showMasterMail, setshowMasterMail] = useState(false);
+  const handleChanges = (selectedOption: any) => {
+    if (selectedOption.target.value === "POS") {
+      return setshowMasterMail(true);
+    }
+
+    return setshowMasterMail(false);
+  };
+
+  async function onSubmit(data: any) {
+    let account_type = "";
+    data.ac_type === "MASTER"
+      ? (account_type = RoleType.MASTER_ACCOUNT)
+      : (account_type = RoleType.POS_ACCOUNT);
+
+    let payload: SigninPayload = {
       identifier: data.email,
       password: data.password,
+      email_master: data.master_account,
+      ac_type: account_type,
     };
-    const APIresponse = await axios.post(`${API}/Auth/signin`, payload, {
+
+    const endpoint = `${API}/Auth/signin`;
+
+    const APIresponse = await axios.post(endpoint, payload, {
       withCredentials: true,
     });
     if (APIresponse) {
@@ -100,8 +122,47 @@ const Signin = () => {
                         />
                       </InputGroup>
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
+                    </Form.Group>
+                    {showMasterMail === true && (
+                      <Form.Group id="master_account" className="mb-4">
+                        <Form.Label>Your Master Account</Form.Label>
+                        <InputGroup
+                          className={` ${errors.password ? "is-invalid" : ""}`}
+                        >
+                          <InputGroup.Text>
+                            <FontAwesomeIcon icon={faEnvelope} />
+                          </InputGroup.Text>
+                          <Form.Control
+                            required
+                            type="email"
+                            placeholder="Master Account"
+                            {...register("master_account", {
+                              required: true,
+                              minLength: 5,
+                            })}
+                          />
+                        </InputGroup>
+                        <div className="invalid-feedback">
+                          {`${errors.password?.message}`}
+                        </div>
+                      </Form.Group>
+                    )}
+
+                    <Form.Group id="ac_type">
+                      <Form.Select
+                        aria-label="Select role "
+                        required
+                        {...register("ac_type", {
+                          required: true,
+                          onChange: handleChanges,
+                        })}
+                      >
+                        <option disabled>Select role account</option>
+                        <option value="MASTER">Master</option>
+                        <option value="POS">POS</option>
+                      </Form.Select>
                     </Form.Group>
                     <div className="d-flex justify-content-between align-items-center mb-4">
                       <Form.Check type="checkbox">

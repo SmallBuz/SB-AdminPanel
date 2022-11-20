@@ -3,7 +3,7 @@ import { Image } from "react-bootstrap";
 
 import ReactLogo from "../assets/img/technologies/react-logo-transparent.svg";
 
-const PreloaderComponent = (props) => {
+const PreloaderComponent = (props:any) => {
   const { show } = props;
 
   return (

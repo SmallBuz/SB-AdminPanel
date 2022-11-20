@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 
 import CodeEditor from "./CodeEditor";
 
-const Documentation = (props) => {
+const Documentation = (props: any) => {
   const {
     title,
     description,

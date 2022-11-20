@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Routes } from "../routes";
 
@@ -7,10 +7,9 @@ import Upgrade from "./Upgrade";
 import DashboardOverview from "./dashboard/DashboardOverview";
 import Transactions from "./Transactions";
 import Orders from "./Orders";
-import Settings from "./Settings";
 import BootstrapTables from "./tables/BootstrapTables";
-import Signin from "./examples/Signin";
-import Signup from "./examples/Signup";
+import Signin from "./Signin";
+import Signup from "./Signup";
 import ForgotPassword from "./examples/ForgotPassword";
 import ResetPassword from "./examples/ResetPassword";
 import Lock from "./examples/Lock";
@@ -39,10 +38,15 @@ import Tables from "./components/Tables";
 import Tabs from "./components/Tabs";
 import Tooltips from "./components/Tooltips";
 import Toasts from "./components/Toasts";
-import Device from "./deviceManager/Device.js";
+import Device from "./DEVICE/DeviceManager/Device";
 import Profile from "./profile/Profile";
-import DeviceView from "./deviceManager/DeviceView";
-import DeviceEdit from "./deviceManager/DeviceEdit";
+import DeviceView from "./DEVICE/DeviceManager/DeviceView";
+import DeviceEdit from "./DEVICE/DeviceManager/DeviceEdit";
+import POSsettingsPage from "./POS/Settings";
+import POS from "./POS/POSManager/POSPage";
+import POSViewPage from "./POS/POSManager/POSViewPage";
+import POSEditPage from "./POS/POSManager/POSEditPage";
+import SettingsDevicePage from "./DEVICE/Settings";
 
 const RouteWithLoader = ({ component: Component, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
@@ -134,7 +138,6 @@ const HomePage = () => (
       path={Routes.ServerError.path}
       component={ServerError}
     />
-
     {/* pages */}
     <RouteWithSidebar
       exact
@@ -148,7 +151,13 @@ const HomePage = () => (
       component={Transactions}
     />
     <RouteWithSidebar exact path={Routes.Orders.path} component={Orders} />
-    <RouteWithSidebar exact path={Routes.Settings.path} component={Settings} />
+    {/* DEVICE */}
+    <RouteWithSidebar
+      exact
+      path={Routes.Settings.path}
+      component={SettingsDevicePage}
+    />
+    <RouteWithSidebar exact path={Routes.addDevice.path} component={Device} />
     <RouteWithSidebar
       exact
       path={Routes.editDevice.path}
@@ -156,15 +165,31 @@ const HomePage = () => (
     />
     <RouteWithSidebar
       exact
+      path={Routes.viewDevice.path}
+      component={DeviceView}
+    />
+    <RouteWithSidebar
+      exact
       path={Routes.BootstrapTables.path}
       component={BootstrapTables}
     />
-    <RouteWithSidebar exact path={Routes.addDevice.path} component={Device} />
     <RouteWithSidebar exact path={Routes.Profile.path} component={Profile} />
+    {/* POS */}
     <RouteWithSidebar
       exact
-      path={Routes.viewDevice.path}
-      component={DeviceView}
+      path={Routes.settingsPos.path}
+      component={POSsettingsPage}
+    />{" "}
+    <RouteWithSidebar exact path={Routes.addPOS.path} component={POS} />
+    <RouteWithSidebar
+      exact
+      path={Routes.viewPOS.path}
+      component={POSViewPage}
+    />
+    <RouteWithSidebar
+      exact
+      path={Routes.editPOS.path}
+      component={POSEditPage}
     />
     {/* components */}
     <RouteWithSidebar
@@ -195,7 +220,6 @@ const HomePage = () => (
     <RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs} />
     <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips} />
     <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts} />
-
     <Redirect to={Routes.NotFound.path} />
   </Switch>
 );

@@ -13,10 +13,11 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Routes } from "../../routes";
-import BgImage from "../../assets/img/illustrations/signin.svg";
+import { Routes } from "../routes";
+import BgImage from "../assets/img/illustrations/signin.svg";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { RoleType } from "../core/utils/constants";
 
 const Signup = () => {
   const {
@@ -28,15 +29,18 @@ const Signup = () => {
   const history = useHistory();
   let API = process.env.REACT_APP_API_URL;
 
-  async function onSubmit(data) {
+  async function onSubmit(data: any) {
     if (data.password === data.confirmpassword) {
       let payload = {
         firstName: "firstUser",
         lastName: "firstUser",
         email: data.email,
+        role: RoleType.MASTER_ACCOUNT,
         password: data.password,
       };
-      const APIresponse = await axios.post(`${API}/Auth/signup`, payload);
+      const APIresponse = await axios.post(`${API}/Auth/signup`, payload, {
+        withCredentials: true,
+      });
       if (APIresponse) {
         history.push(Routes.DashboardOverview.path);
       }
@@ -100,9 +104,10 @@ const Signup = () => {
                       />
                     </InputGroup>
                     <div className="invalid-feedback">
-                      {errors.password?.message}
+                      {`${errors.password?.message}`}
                     </div>
                   </Form.Group>
+
                   <Form.Group id="confirmPassword" className="mb-4">
                     <Form.Label>Confirm Password</Form.Label>
                     <InputGroup
@@ -133,7 +138,7 @@ const Signup = () => {
                       />
                     </InputGroup>
                     <div className="invalid-feedback">
-                      {errors.confirmpassword?.message}
+                      {`${errors.confirmpassword?.message}`}
                     </div>
                   </Form.Group>
                   <FormCheck type="checkbox" className="d-flex mb-4">

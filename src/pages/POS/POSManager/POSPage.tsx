@@ -1,82 +1,42 @@
-import React, { useCallback, useEffect } from "react";
-import { Col, Row, Card, Form, Button } from "react-bootstrap";
+import React from "react";
+import { Col, Row, Card, Form, Button, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { RoleType } from "../../../core/utils/constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Routes } from "../../../routes";
 import { useHistory } from "react-router-dom";
-import { Routes } from "../../routes";
-
-const DeviceEditPage = (props) => {
+const POS = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     watch,
     formState: { errors },
   } = useForm();
-  let API = process.env.REACT_APP_API_URL;
   const history = useHistory();
-  const device_id = props.match.params.id;
-
-  const fetchData = useCallback(async () => {
-    let API = process.env.REACT_APP_API_URL;
-    const APIresponse = await axios.post(
-      `${API}/userDevice/getOneDevice`,
-      {
-        userDeviceName: device_id,
-      },
-
-      {
-        withCredentials: true,
-      }
-    );
-    if (APIresponse) {
-      const dataRes = APIresponse.data;
-
-      setValue("devicename", dataRes["userName"]);
-      setValue("password", dataRes["userPassword"]);
-      setValue("confirmpassword", dataRes["userPassword"]);
-    }
-  }, [setValue, device_id]);
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  async function onSubmit(data) {
+  let API = process.env.REACT_APP_API_URL;
+  const userInfo = useSelector((state: RootState) => state.stateRole);
+  async function onSubmit(data: any) {
     let payload = {
-      userName: data.devicename,
-      userPassword: data.password,
+      firstName: data.emailPOS,
+      lastName: data.emailPOS,
+      email: data.emailPOS,
+      password: data.password,
+      role: RoleType.POS_ACCOUNT,
+      uuid_master: userInfo.uuid,
     };
-    console.log(data);
+
     if (data.password === data.confirmpassword) {
-      const APIresponse = await axios.post(
-        `${API}/userDevice/addOneDevice`,
-        payload,
-        {
-          withCredentials: true,
-        }
-      );
-      if (APIresponse) {
-        console.log(APIresponse);
-        history.replace(Routes.DashboardOverview.path);
-      }
-    }
-  }
-
-  async function onDelete() {
-    let payload = {
-      device_uuid: device_id,
-    };
-
-    const APIresponse = await axios.post(
-      `${API}/userDevice/removeOneDevice`,
-      payload,
-      {
+      const APIresponse = await axios.post(`${API}/Auth/signup`, payload, {
         withCredentials: true,
+      });
+      if (APIresponse) {
+        history.push(Routes.DashboardOverview.path);
+       
       }
-    );
-    if (APIresponse) {
-      console.log(APIresponse);
-      history.replace(Routes.DashboardOverview.path);
     }
   }
   return (
@@ -85,29 +45,34 @@ const DeviceEditPage = (props) => {
         <Col xs={12} xl={8}>
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
-              <h5 className="mb-4"> Device information</h5>
+              <h5 className="mb-4"> General POS information</h5>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                   <Col md={6} className="mb-3">
-                    <Form.Group id="devicename">
-                      <Form.Label>Device Name</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Enter your device name"
-                        {...register("devicename", {
-                          required: true,
-                          minLength: 5,
-                        })}
-                        className={`form-control ${
-                          errors.devicename ? "is-invalid" : ""
-                        }`}
-                      />
+                    <Form.Group id="emailPOS">
+                      <Form.Label>POS Email</Form.Label>
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <FontAwesomeIcon icon={faEnvelope} />
+                        </InputGroup.Text>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Enter your POS email"
+                          {...register("emailPOS", {
+                            required: true,
+                            minLength: 5,
+                          })}
+                          className={`form-control ${
+                            errors.emailPOS ? "is-invalid" : ""
+                          }`}
+                        />
+                      </InputGroup>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="mb-3">
                     <Form.Group id="password">
-                      <Form.Label>Device Password</Form.Label>
+                      <Form.Label>POS Password</Form.Label>
                       <Form.Control
                         required
                         type="password"
@@ -124,7 +89,7 @@ const DeviceEditPage = (props) => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -152,7 +117,7 @@ const DeviceEditPage = (props) => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.confirmpassword?.message}
+                        {`${errors.confirmpassword?.message}`}
                       </div>
                     </Form.Group>
                   </Col>
@@ -160,16 +125,7 @@ const DeviceEditPage = (props) => {
 
                 <div className="mt-3">
                   <Button variant="primary" type="submit">
-                    Update Device
-                  </Button>
-                </div>
-                <div className="mt-3">
-                  <Button
-                    variant="danger"
-                    type="submit"
-                    onClick={handleSubmit(onDelete)}
-                  >
-                    Delete
+                    Save All
                   </Button>
                 </div>
               </Form>
@@ -180,4 +136,4 @@ const DeviceEditPage = (props) => {
     </>
   );
 };
-export default DeviceEditPage;
+export default POS;

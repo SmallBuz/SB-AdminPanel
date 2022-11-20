@@ -372,7 +372,6 @@ export const OrdersTable = (props) => {
     </Card>
   );
 };
-
 export const DevicesTable = (props) => {
   const totalTransactions = props.lengthtotal;
   const actualQuery = props.length;
@@ -381,7 +380,7 @@ export const DevicesTable = (props) => {
   const actualPage = props.actualPage;
   const setPage = props.setPage;
   const TableRow = (componentDataSource) => {
-    const { uuid, userName } = componentDataSource;
+    const { userName, emailPOS, uuid } = componentDataSource;
 
     return (
       <tr>
@@ -393,7 +392,9 @@ export const DevicesTable = (props) => {
         <td>
           <span className="fw-normal">{userName}</span>
         </td>
-        {""}
+        <td>
+          <span className="fw-normal">{emailPOS}</span>
+        </td>
         <td>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle
@@ -428,6 +429,119 @@ export const DevicesTable = (props) => {
             <tr>
               <th className="border-bottom">uuid</th>
               <th className="border-bottom">Device Name</th>
+              <th className="border-bottom">POS Account</th>
+              <th className="border-bottom">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.componentDataSource.map((t, index) => (
+              <TableRow key={`transaction-${index}`} {...t} />
+            ))}
+          </tbody>
+        </Table>
+        <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
+          <Nav>
+            <Pagination className="mb-2 mb-lg-0">
+              <Pagination.Prev
+                onClick={() => {
+                  if (actualPage > 1) {
+                    setPage(actualPage - 1);
+                  }
+                }}
+              >
+                Previous
+              </Pagination.Prev>
+              {[...Array(nPages)].map((_elementInArray, index) => (
+                <Pagination.Item
+                  active={index + 1 === actualPage ? true : false}
+                  onClick={() => setPage(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => {
+                  if (actualPage !== nPages) {
+                    setPage(actualPage + 1);
+                  }
+                }}
+              >
+                {"Next"}
+              </Pagination.Next>
+            </Pagination>
+          </Nav>
+          <small className="fw-bold">
+            Showing <b>{actualQuery}</b> out of <b>{totalTransactions}</b>{" "}
+            entries
+          </small>
+        </Card.Footer>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export const POSDevicesTable = (props) => {
+  const totalTransactions = props.lengthtotal;
+  const actualQuery = props.length;
+  const recordsPerPage = 10;
+  const nPages = Math.ceil(totalTransactions / recordsPerPage);
+  const actualPage = props.actualPage;
+  const setPage = props.setPage;
+  const TableRow = (componentDataSource) => {
+    const { email, firstName, master, uuid } = componentDataSource;
+
+    return (
+      <tr>
+        <td>
+          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
+            {uuid}
+          </Card.Link>
+        </td>
+        <td>
+          <span className="fw-normal">{email}</span>
+        </td>
+        <td>
+          <span className="fw-normal">{firstName}</span>
+        </td>
+        <td>
+          <span className="fw-normal">{master}</span>
+        </td>
+        <td>
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              as={Button}
+              split
+              variant="link"
+              className="text-dark m-0 p-0"
+            >
+              <span className="icon icon-sm">
+                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
+              </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to={`/view-POS/${uuid}`}>
+                <FontAwesomeIcon icon={faEye} className="me-2" />
+                View Device
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/edit-POS/${uuid}`}>
+                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </td>
+      </tr>
+    );
+  };
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+            <tr>
+              <th className="border-bottom">uuid</th>
+              <th className="border-bottom">email</th>
+              <th className="border-bottom">POS Name</th>
+              <th className="border-bottom">Master Account</th>
               <th className="border-bottom">Action</th>
             </tr>
           </thead>
@@ -480,7 +594,7 @@ export const DevicesTable = (props) => {
 
 export const OneDeviceTable = (props) => {
   const TableRow = (componentDataSource) => {
-    console.log(componentDataSource);
+   
     const { user_device_uuid, user_device_user_name } = componentDataSource;
 
     return (
@@ -542,6 +656,117 @@ export const OneDeviceTable = (props) => {
   );
 };
 
+export const POSTransactionsTable = (props) => {
+  const totalTransactions = props.length;
+
+  const TableRow = (componentDataSource) => {
+    const { invoiceNumber, subscription, price, issueDate, dueDate, status } =
+      componentDataSource;
+    const statusVariant =
+      status === "Paid"
+        ? "success"
+        : status === "Due"
+        ? "warning"
+        : status === "Canceled"
+        ? "danger"
+        : "primary";
+
+    return (
+      <tr>
+        <td>
+          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
+            {invoiceNumber}
+          </Card.Link>
+        </td>
+        <td>
+          <span className="fw-normal">{subscription}</span>
+        </td>
+        <td>
+          <span className="fw-normal">{issueDate}</span>
+        </td>
+        <td>
+          <span className="fw-normal">{dueDate}</span>
+        </td>
+        <td>
+          <span className="fw-normal">${parseFloat(price).toFixed(2)}</span>
+        </td>
+        <td>
+          <span className={`fw-normal text-${statusVariant}`}>{status}</span>
+        </td>
+        <td>
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              as={Button}
+              split
+              variant="link"
+              className="text-dark m-0 p-0"
+            >
+              <span className="icon icon-sm">
+                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
+              </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="me-2"
+                  link={Routes.Settings.path}
+                />{" "}
+                View Details
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
+              </Dropdown.Item>
+              <Dropdown.Item className="text-danger">
+                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </td>
+      </tr>
+    );
+  };
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+            <tr>
+              <th className="border-bottom">POS Name</th>
+              <th className="border-bottom">Bill For</th>
+              <th className="border-bottom">Issue Date</th>
+              <th className="border-bottom">Due Date</th>
+              <th className="border-bottom">Total</th>
+              <th className="border-bottom">Status</th>
+              <th className="border-bottom">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.componentDataSource.map((t) => (
+              <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />
+            ))}
+          </tbody>
+        </Table>
+        <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
+          <Nav>
+            <Pagination className="mb-2 mb-lg-0">
+              <Pagination.Prev>Previous</Pagination.Prev>
+              <Pagination.Item active>1</Pagination.Item>
+              <Pagination.Item>2</Pagination.Item>
+              <Pagination.Item>3</Pagination.Item>
+              <Pagination.Item>4</Pagination.Item>
+              <Pagination.Item>5</Pagination.Item>
+              <Pagination.Next>Next</Pagination.Next>
+            </Pagination>
+          </Nav>
+          <small className="fw-bold">
+            Showing <b>{totalTransactions}</b> out of <b>25</b> entries
+          </small>
+        </Card.Footer>
+      </Card.Body>
+    </Card>
+  );
+};
 export const TransactionsTable = (props) => {
   const totalTransactions = props.length;
 
@@ -653,7 +878,6 @@ export const TransactionsTable = (props) => {
     </Card>
   );
 };
-
 export const CommandsTable = () => {
   const TableRow = (props) => {
     const { name, usage = [], description, link } = props;

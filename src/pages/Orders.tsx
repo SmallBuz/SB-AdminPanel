@@ -1,55 +1,55 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
+import { useErrorStatus } from "../core/api-handler/api-handler";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faCog,
-  faHome,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   Col,
   Row,
   Form,
   Button,
   ButtonGroup,
-  Breadcrumb,
   InputGroup,
   Dropdown,
 } from "react-bootstrap";
 
-import { TransactionsTable } from "../components/Tables";
-import fakedatatrans2 from "../data/fakedatatrans2";
+import { OrdersTable } from "../components/Tables";
+import fakedatatrans1 from "../data/fakedatatrans1";
 
-const Transactions = () => {
+const OrdersPage = () => {
+  const [userArchives, setuserArchives] = useState<any>([]);
+  const { setErrorStatusCode } = useErrorStatus();
+  const [usePage] = useState(1);
+  const fetchData = useCallback(async () => {
+    let API = process.env.REACT_APP_API_URL;
+    try {
+      const APIresponse = await axios.get(
+        `${API}/userArchives/GetAllUserArchives?page=${usePage}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (APIresponse) {
+       
+        setuserArchives(APIresponse.data);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        setErrorStatusCode(error.response.status);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  }, [setErrorStatusCode, usePage]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <>
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div className="d-block mb-4 mb-md-0">
-          <Breadcrumb
-            className="d-none d-md-inline-block"
-            listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}
-          >
-            <Breadcrumb.Item>
-              <FontAwesomeIcon icon={faHome} />
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Volt</Breadcrumb.Item>
-            <Breadcrumb.Item active>Transactions</Breadcrumb.Item>
-          </Breadcrumb>
-          <h4>Transactions</h4>
-          <p className="mb-0">Your web analytics dashboard template.</p>
-        </div>
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <ButtonGroup>
-            <Button variant="outline-primary" size="sm">
-              Share
-            </Button>
-            <Button variant="outline-primary" size="sm">
-              Export
-            </Button>
-          </ButtonGroup>
-        </div>
-      </div>
-
       <div className="table-settings mb-4">
         <Row className="justify-content-between align-items-center">
           <Col xs={8} md={6} lg={3} xl={4}>
@@ -89,9 +89,12 @@ const Transactions = () => {
           </Col>
         </Row>
       </div>
-
-      <TransactionsTable componentDataSource={fakedatatrans2} />
+      {userArchives?.archives?.length > 0 ? (
+        <OrdersTable componentDataSource={fakedatatrans1} />
+      ) : (
+        "No se encontraron registros"
+      )}
     </>
   );
 };
-export default Transactions;
+export default OrdersPage;

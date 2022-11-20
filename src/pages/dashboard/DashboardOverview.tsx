@@ -1,11 +1,9 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCashRegister,
   faChartLine,
   faCloudUploadAlt,
   faPlus,
-  faRocket,
   faTasks,
   faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
@@ -37,33 +35,27 @@ const DashboardOverviewPage = () => {
             className="me-2"
           >
             <FontAwesomeIcon icon={faPlus} className="me-2" />
-            New Task
+            Stadistics
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faTasks} className="me-2" /> New Task
+              <FontAwesomeIcon icon={faTasks} className="me-2" /> New Graphic
             </Dropdown.Item>
             <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faCloudUploadAlt} className="me-2" />{" "}
-              Upload Files
+              <FontAwesomeIcon icon={faCloudUploadAlt} className="me-2" /> Edit
+              Graphics
             </Dropdown.Item>
             <Dropdown.Item className="fw-bold">
               <FontAwesomeIcon icon={faUserShield} className="me-2" /> Preview
-              Security
             </Dropdown.Item>
 
             <Dropdown.Divider />
-
-            <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faRocket} className="text-danger me-2" />{" "}
-              Upgrade to Pro2
-            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 
         <ButtonGroup>
           <Button variant="outline-primary" size="sm">
-            Sharedd
+            Shared
           </Button>
           <Button variant="outline-primary" size="sm">
             Export

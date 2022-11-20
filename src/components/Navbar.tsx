@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -19,16 +19,20 @@ import {
   Container,
   ListGroup,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import NOTIFICATIONS_DATA from "../data/notifications";
 import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import { Routes } from "../routes";
 import { useErrorStatus } from "../core/api-handler/api-handler";
+import { changeUUID, changeRole, changeUsername } from "../redux/counter/storage";
+import { useDispatch } from "react-redux";
 
-const NavbarComponent = (props) => {
+const NavbarComponent = (props: any) => {
   const { setErrorStatusCode } = useErrorStatus();
   const [userProfile, setuserProfile] = useState("");
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const areNotificationsRead = notifications.reduce(
     (acc, notif) => acc && notif.read,
     true
@@ -47,9 +51,13 @@ const NavbarComponent = (props) => {
         withCredentials: true,
       });
       if (APIresponse) {
+       
+        dispatch(changeRole(APIresponse["data"]["userAuth"]["role"]));
+        dispatch(changeUsername(APIresponse["data"]["firstName"]));
+        dispatch(changeUUID(APIresponse["data"]["userAuth"]["uuid"]));
         setuserProfile(APIresponse["data"]["firstName"]);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       if (error.response) {
         setErrorStatusCode(error.response.status);
@@ -60,25 +68,48 @@ const NavbarComponent = (props) => {
       }
       console.log(error.config);
     }
-  }, [setErrorStatusCode]);
+  }, [setErrorStatusCode, dispatch]);
+
+  const buttonLogout = useCallback(async () => {
+    let API = process.env.REACT_APP_API_URL;
+    try {
+      const APIresponse = await axios.patch(`${API}/Auth/signout`);
+      if (APIresponse) {
+        await fetchData();
+        console.log(APIresponse.data);
+        history.replace("");
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.response) {
+        setErrorStatusCode(error.response.status);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  }, [setErrorStatusCode, history, fetchData]);
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const Notification = (props) => {
+  const Notification = (props: any) => {
     const { link, sender, image, time, message, read = false } = props;
     const readClassName = read ? "" : "text-danger";
 
     return (
-      <ListGroup.Item action href={link} className="border-bottom border-light">
-        <Row className="align-items-center">
+      <ListGroup.Item action href={link} className="border-bottom border-light ">
+        <Row className="align-items-center ">
           <Col className="col-auto">
             <Image
               src={image}
               className="user-avatar lg-avatar rounded-circle"
             />
           </Col>
-          <Col className="ps-0 ms--2">
+          <Col className="ps-0 ms--2 ">
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <h4 className="h6 mb-0 text-small">{sender}</h4>
@@ -95,10 +126,10 @@ const NavbarComponent = (props) => {
   };
 
   return (
-    <Navbar variant="dark" expanded className="ps-0 pe-2 pb-0">
+    <Navbar variant="dark" expanded className="ps-0 pe-2 pb-0 ">
       <Container fluid className="px-0">
-        <div className="d-flex justify-content-between w-100">
-          <Nav className="align-items-center">
+        <div className="d-flex justify-content-between w-100 ">
+          <Nav className="align-items-center ">
             <Dropdown as={Nav.Item} onToggle={markNotificationsAsRead}>
               <Dropdown.Toggle
                 as={Nav.Link}
@@ -168,7 +199,7 @@ const NavbarComponent = (props) => {
 
                 <Dropdown.Divider />
 
-                <Dropdown.Item className="fw-bold">
+                <Dropdown.Item className="fw-bold" onClick={buttonLogout}>
                   <FontAwesomeIcon
                     icon={faSignOutAlt}
                     className="text-danger me-2"

@@ -3,7 +3,7 @@ import { Col, Row, Card, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const DeviceViewPage = (props) => {
+const DeviceViewPage = (props: any) => {
   const {
     register,
     setValue,
@@ -83,7 +83,7 @@ const DeviceViewPage = (props) => {
                         }`}
                       />
                       <div className="invalid-feedback">
-                        {errors.password?.message}
+                        {`${errors.password?.message}`}
                       </div>
                     </Form.Group>
                   </Col>

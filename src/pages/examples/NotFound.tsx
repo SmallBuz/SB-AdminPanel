@@ -29,18 +29,15 @@ const NotFound = () => {
                   Oops! Looks like you followed a bad link. If you think this is
                   a problem with us, please tell us.
                 </p>
-                <Button
-                  as={Link}
-                  variant="primary"
-                  className="animate-hover"
-                  to={Routes.DashboardOverview.path}
-                >
-                  <FontAwesomeIcon
-                    icon={faChevronLeft}
-                    className="animate-left-3 me-3 ms-2"
-                  />
-                  Go back home
-                </Button>
+                <Link to={Routes.DashboardOverview.path}>
+                  <Button variant="primary" className="animate-hover">
+                    <FontAwesomeIcon
+                      icon={faChevronLeft}
+                      className="animate-left-3 me-3 ms-2"
+                    />
+                    Go back home
+                  </Button>
+                </Link>
               </div>
             </Col>
           </Row>
