@@ -17,7 +17,14 @@ export const Routes = {
   Lock: { path: "/examples/lock" },
   NotFound: { path: "/404" },
   ServerError: { path: "/500" },
-  // Sub-pages
+
+  // POS
+  settingsPos: { path: "/pos-settings" },
+  // DEVICES
+  addPOS: { path: "/add-POS" },
+  viewPOS: { path: "/view-POS/:id" },
+  editPOS: { path: "/edit-POS/:id" },
+  // DEVICES
   addDevice: { path: "/add-device" },
   viewDevice: { path: "/view-device/:id" },
   editDevice: { path: "/edit-device/:id" },

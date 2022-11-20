@@ -22,17 +22,18 @@ import {
   Navbar,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { Routes } from "../routes";
 import CompanyLogo from "../assets/img/technologies/company-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
-
+import { RoleType } from "../core/utils/constants";
 const SideBarComponent = (props = {}) => {
   const location = useLocation();
   const { pathname } = location;
   const [show, setShow] = useState(false);
   const showClass = show ? "show" : "";
-
+  const role = useSelector((state) => state.stateRole.role);
+  const username = useSelector((state) => state.stateRole.username);
   const onCollapse = () => setShow(!show);
 
   const CollapsableNavItem = (props) => {
@@ -119,7 +120,7 @@ const SideBarComponent = (props = {}) => {
         expand={false}
         collapseOnSelect
         variant="dark"
-        className="navbar-theme-primary px-4 d-md-none"
+        className="bg-custom-style px-4 d-md-none"
       >
         <Navbar.Brand className="me-lg-5">
           <Image
@@ -139,7 +140,7 @@ const SideBarComponent = (props = {}) => {
       </Navbar>
       <CSSTransition timeout={300} in={show} classNames="sidebar-transition">
         <SimpleBar
-          className={`collapse ${showClass} sidebar d-md-block bg-primary text-white`}
+          className={`collapse ${showClass} sidebar d-md-block bg-custom-style text-white`}
         >
           <div className="sidebar-inner px-4 pt-3">
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
@@ -151,7 +152,7 @@ const SideBarComponent = (props = {}) => {
                   />
                 </div>
                 <div className="d-block">
-                  <h6>Hi, Jane</h6>
+                  <h6>Hi, {username}</h6>
                   <Button
                     as={Link}
                     variant="secondary"
@@ -171,43 +172,73 @@ const SideBarComponent = (props = {}) => {
                 <FontAwesomeIcon icon={faTimes} />
               </Nav.Link>
             </div>
-            <Nav className="flex-column pt-5 pt-md-0 ">
-              <Image
-                width={200}
-                height={200}
-                src={CompanyLogo}
-                className="card-img-top rounded-circle border-white"
-              />
-              <NavItem
-                title="Overview"
-                link={Routes.DashboardOverview.path}
-                icon={faChartPie}
-              />
-              <CollapsableNavItem
-                eventKey="orders/"
-                title="Order Manager"
-                icon={faTable}
-              >
+
+            {role === RoleType.POS_ACCOUNT && (
+              <Nav className="flex-column pt-5 pt-md-0 ">
+                <Image
+                  width={200}
+                  height={200}
+                  src={CompanyLogo}
+                  className="card-img-top rounded-circle border-white"
+                />
                 <NavItem
                   title="Overview"
-                  link={Routes.Orders.path}
-                  icon={faInbox}
+                  link={Routes.DashboardOverview.path}
+                  icon={faChartPie}
                 />
-              </CollapsableNavItem>
+                <CollapsableNavItem
+                  eventKey="orders/"
+                  title="Order Manager"
+                  icon={faTable}
+                >
+                  <NavItem
+                    title="Overview"
+                    link={Routes.Orders.path}
+                    icon={faInbox}
+                  />
+                </CollapsableNavItem>
+                <NavItem
+                  title="Local Transactions"
+                  icon={faHandHoldingUsd}
+                  link={Routes.Transactions.path}
+                />
+                <NavItem
+                  title="Device Settings"
+                  icon={faCog}
+                  link={Routes.Settings.path}
+                />
 
-              <NavItem
-                title="Transactions"
-                icon={faHandHoldingUsd}
-                link={Routes.Transactions.path}
-              />
-              <NavItem
-                title="Settings"
-                icon={faCog}
-                link={Routes.Settings.path}
-              />
+                <Dropdown.Divider className="my-3 border-indigo" />
+              </Nav>
+            )}
 
-              <Dropdown.Divider className="my-3 border-indigo" />
-            </Nav>
+            {role === RoleType.MASTER_ACCOUNT && (
+              <Nav className="flex-column pt-5 pt-md-0 ">
+                <Image
+                  width={200}
+                  height={200}
+                  src={CompanyLogo}
+                  className="card-img-top rounded-circle border-white"
+                />
+                <NavItem
+                  title="Overview"
+                  link={Routes.DashboardOverview.path}
+                  icon={faChartPie}
+                />
+                <NavItem
+                  title="POS Transactions"
+                  icon={faHandHoldingUsd}
+                  link={Routes.Transactions.path}
+                />
+                <NavItem
+                  title="POS Settings"
+                  icon={faCog}
+                  link={Routes.settingsPos.path}
+                />
+
+                <Dropdown.Divider className="my-3 border-indigo" />
+              </Nav>
+            )}
           </div>
         </SimpleBar>
       </CSSTransition>

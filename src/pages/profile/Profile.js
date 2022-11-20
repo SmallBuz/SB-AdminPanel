@@ -1,11 +1,8 @@
-import React, { useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { Col, Row, Card, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { Routes } from "../../routes";
 import { useErrorStatus } from "../../core/api-handler/api-handler";
-
 const Profile = () => {
   const {
     register,
@@ -14,8 +11,6 @@ const Profile = () => {
     formState: { errors },
   } = useForm();
   const { setErrorStatusCode } = useErrorStatus();
-  const history = useHistory();
-  let API = process.env.REACT_APP_API_URL;
 
   const fetchData = useCallback(async () => {
     let API = process.env.REACT_APP_API_URL;
@@ -25,6 +20,7 @@ const Profile = () => {
       });
       if (APIresponse) {
         setValue("firstname", APIresponse["data"]["firstName"]);
+
         setValue("middlename", APIresponse["data"]["middleName"]);
         setValue("lastname", APIresponse["data"]["lastName"]);
         setValue("mothername", APIresponse["data"]["motherName"]);
@@ -47,6 +43,7 @@ const Profile = () => {
   }, [fetchData]);
 
   async function onSubmit(data) {
+    let API = process.env.REACT_APP_API_URL;
     let payload = {
       firstName: data.firstname,
       middleName: data.middlename,
@@ -60,7 +57,7 @@ const Profile = () => {
     });
 
     if (APIresponse) {
-      history.push(Routes.DashboardOverview.path);
+      window.location.reload();
     }
   }
   return (
@@ -109,7 +106,7 @@ const Profile = () => {
                   </Col>
                   <Col md={6} className="mb-3">
                     <Form.Group id="middleName">
-                      <Form.Label>Middle Name</Form.Label>
+                      <Form.Label>Email</Form.Label>
                       <Form.Control
                         disabled
                         required

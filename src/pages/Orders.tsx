@@ -30,7 +30,7 @@ const OrdersPage = () => {
         }
       );
       if (APIresponse) {
-        console.log(APIresponse.data);
+       
         setuserArchives(APIresponse.data);
       }
     } catch (error: any) {

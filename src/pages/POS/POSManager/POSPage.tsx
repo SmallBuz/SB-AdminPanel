@@ -1,33 +1,41 @@
 import React from "react";
-import { Col, Row, Card, Form, Button } from "react-bootstrap";
+import { Col, Row, Card, Form, Button, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
-const Device = () => {
+import { RoleType } from "../../../core/utils/constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Routes } from "../../../routes";
+import { useHistory } from "react-router-dom";
+const POS = () => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+  const history = useHistory();
   let API = process.env.REACT_APP_API_URL;
-
-  async function onSubmit(data:any) {
+  const userInfo = useSelector((state: RootState) => state.stateRole);
+  async function onSubmit(data: any) {
     let payload = {
-      userName: data.devicename,
-      userPassword: data.password,
+      firstName: data.emailPOS,
+      lastName: data.emailPOS,
+      email: data.emailPOS,
+      password: data.password,
+      role: RoleType.POS_ACCOUNT,
+      uuid_master: userInfo.uuid,
     };
-    console.log(data);
+
     if (data.password === data.confirmpassword) {
-      const APIresponse = await axios.post(
-        `${API}/userDevice/addOneDevice`,
-        payload,
-        {
-          withCredentials: true,
-        }
-      );
+      const APIresponse = await axios.post(`${API}/Auth/signup`, payload, {
+        withCredentials: true,
+      });
       if (APIresponse) {
-        console.log(APIresponse);
+        history.push(Routes.DashboardOverview.path);
+       
       }
     }
   }
@@ -37,29 +45,34 @@ const Device = () => {
         <Col xs={12} xl={8}>
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
-              <h5 className="mb-4"> General Device information</h5>
+              <h5 className="mb-4"> General POS information</h5>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                   <Col md={6} className="mb-3">
-                    <Form.Group id="devicename">
-                      <Form.Label>Device Name</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Enter your device name"
-                        {...register("devicename", {
-                          required: true,
-                          minLength: 5,
-                        })}
-                        className={`form-control ${
-                          errors.devicename ? "is-invalid" : ""
-                        }`}
-                      />
+                    <Form.Group id="emailPOS">
+                      <Form.Label>POS Email</Form.Label>
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <FontAwesomeIcon icon={faEnvelope} />
+                        </InputGroup.Text>
+                        <Form.Control
+                          required
+                          type="text"
+                          placeholder="Enter your POS email"
+                          {...register("emailPOS", {
+                            required: true,
+                            minLength: 5,
+                          })}
+                          className={`form-control ${
+                            errors.emailPOS ? "is-invalid" : ""
+                          }`}
+                        />
+                      </InputGroup>
                     </Form.Group>
                   </Col>
                   <Col md={6} className="mb-3">
                     <Form.Group id="password">
-                      <Form.Label>Device Password</Form.Label>
+                      <Form.Label>POS Password</Form.Label>
                       <Form.Control
                         required
                         type="password"
@@ -123,4 +136,4 @@ const Device = () => {
     </>
   );
 };
-export default Device;
+export default POS;

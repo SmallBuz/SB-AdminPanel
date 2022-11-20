@@ -1,11 +1,12 @@
 import React from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import axios from "axios";
-import { DevicesTable } from "../../components/Tables";
-import { useEffect, useCallback, useState } from "react";
-import { useErrorStatus } from "../../core/api-handler/api-handler";
 
-const DeviceListPage = () => {
+import { useEffect, useCallback, useState } from "react";
+import { POSDevicesTable } from "../../../components/Tables";
+import { useErrorStatus } from "../../../core/api-handler/api-handler";
+
+const POSListPage = () => {
   const [userDevices, setUserDevices] = useState<any>([]);
   const { setErrorStatusCode } = useErrorStatus();
   const [usePage, setUsePage] = useState(1);
@@ -13,16 +14,15 @@ const DeviceListPage = () => {
     let API = process.env.REACT_APP_API_URL;
     try {
       const APIresponse = await axios.get(
-        `${API}/userDevice/getAllUserDevices?page=${usePage}`,
+        `${API}/POSDevice/getAllPOSDevices?page=${usePage}`,
         {
           withCredentials: true,
         }
       );
       if (APIresponse) {
-        console.log(APIresponse.data);
         setUserDevices(APIresponse.data);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (error.response) {
         setErrorStatusCode(error.response.status);
       } else if (error.request) {
@@ -40,12 +40,12 @@ const DeviceListPage = () => {
   return (
     <>
       <Row>
-        <Col xs={12} xl={8}>
+        <Col xs={12}  md={12} lg={12}>
           <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
-              <h5 className="mb-4">Devices List</h5>
+              <h5 className="mb-4">POS List</h5>
               {userDevices.users?.length > 0 ? (
-                <DevicesTable
+                <POSDevicesTable
                   componentDataSource={userDevices?.users}
                   length={userDevices?.users?.length}
                   lengthtotal={userDevices?.itemCount}
@@ -62,4 +62,4 @@ const DeviceListPage = () => {
     </>
   );
 };
-export default DeviceListPage;
+export default POSListPage;

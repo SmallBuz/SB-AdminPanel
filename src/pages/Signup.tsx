@@ -13,10 +13,11 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Routes } from "../../routes";
-import BgImage from "../../assets/img/illustrations/signin.svg";
+import { Routes } from "../routes";
+import BgImage from "../assets/img/illustrations/signin.svg";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { RoleType } from "../core/utils/constants";
 
 const Signup = () => {
   const {
@@ -34,9 +35,12 @@ const Signup = () => {
         firstName: "firstUser",
         lastName: "firstUser",
         email: data.email,
+        role: RoleType.MASTER_ACCOUNT,
         password: data.password,
       };
-      const APIresponse = await axios.post(`${API}/Auth/signup`, payload);
+      const APIresponse = await axios.post(`${API}/Auth/signup`, payload, {
+        withCredentials: true,
+      });
       if (APIresponse) {
         history.push(Routes.DashboardOverview.path);
       }

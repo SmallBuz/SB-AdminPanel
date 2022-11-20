@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBoxOpen,
@@ -12,10 +11,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Routes } from "../routes";
-import DeviceList from "./deviceManager/DeviceList";
+import { Routes } from "../../routes";
+import POSListPage from "./POSManager/POSListPage";
 
-const SettingsPage = () => {
+const POSsettingsPage = () => {
   return (
     <>
       <div className="d-flex  flex-wrap flex-md-nowrap align-items-center py-4">
@@ -30,10 +29,10 @@ const SettingsPage = () => {
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item>
-              <Link to={Routes.addDevice.path}>
+              <Link to={Routes.addPOS.path}>
                 <Button>
                   <FontAwesomeIcon icon={faBoxOpen} className="me-2" />
-                  {"Add Devices"}
+                  {"Add new POS"}
                 </Button>
               </Link>
             </Dropdown.Item>
@@ -79,10 +78,10 @@ const SettingsPage = () => {
       </div>
       <Row>
         <Col xs={12}>
-          <DeviceList />
+          <POSListPage />
         </Col>
       </Row>
     </>
   );
 };
-export default SettingsPage;
+export default POSsettingsPage;
