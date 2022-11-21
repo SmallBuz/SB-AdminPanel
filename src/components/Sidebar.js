@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Routes } from "../routes";
 import CompanyLogo from "../assets/img/technologies/company-logo.svg";
-import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
+import defaultProfile from "../assets/img/icons/profile_default.svg";
 import { RoleType } from "../core/utils/constants";
 const SideBarComponent = (props = {}) => {
   const location = useLocation();
@@ -147,7 +147,7 @@ const SideBarComponent = (props = {}) => {
               <div className="d-flex align-items-center">
                 <div className="user-avatar lg-avatar me-4">
                   <Image
-                    src={ProfilePicture}
+                    src={defaultProfile}
                     className="card-img-top rounded-circle border-white"
                   />
                 </div>

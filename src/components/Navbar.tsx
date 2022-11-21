@@ -21,7 +21,7 @@ import {
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import NOTIFICATIONS_DATA from "../data/notifications";
-import Profile3 from "../assets/img/team/profile-picture-3.jpg";
+import defaultProfile from "../assets/img/icons/profile_default.svg";
 import { Routes } from "../routes";
 import { useErrorStatus } from "../core/api-handler/api-handler";
 import { changeUUID, changeRole, changeUsername } from "../redux/counter/storage";
@@ -166,7 +166,7 @@ const NavbarComponent = (props: any) => {
               <Dropdown.Toggle as={Nav.Link} className="pt-1 px-0">
                 <div className="media d-flex align-items-center">
                   <Image
-                    src={Profile3}
+                    src={defaultProfile}
                     className="user-avatar md-avatar rounded-circle"
                   />
                   <div className="media-body ms-2 text-dark align-items-center d-none d-lg-block">

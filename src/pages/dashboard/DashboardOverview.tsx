@@ -35,7 +35,7 @@ const DashboardOverviewPage = () => {
             className="me-2"
           >
             <FontAwesomeIcon icon={faPlus} className="me-2" />
-            Stadistics
+            Statistics
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item className="fw-bold">
