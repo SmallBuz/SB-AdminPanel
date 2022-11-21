@@ -9,6 +9,7 @@
     z-index: 100;
 
     .navbar-toggler-icon {
+        
         background-image: $navbar-dark-toggler-icon-bg;
     }
 }
@@ -455,6 +456,7 @@
 
         .collapse-close { 
             text-align: right;
+            color: black;
         }
     }
 

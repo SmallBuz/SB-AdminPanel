@@ -120,7 +120,7 @@ const SideBarComponent = (props = {}) => {
         expand={false}
         collapseOnSelect
         variant="dark"
-        className="bg-custom-style px-4 d-md-none"
+        className="bg-custom-style px-4 d-md-none "
       >
         <Navbar.Brand className="me-lg-5">
           <Image
@@ -140,7 +140,7 @@ const SideBarComponent = (props = {}) => {
       </Navbar>
       <CSSTransition timeout={300} in={show} classNames="sidebar-transition">
         <SimpleBar
-          className={`collapse ${showClass} sidebar d-md-block bg-custom-style text-white`}
+          className={`collapse ${showClass} sidebar d-md-block bg-custom-style text-white bg-custom-border`}
         >
           <div className="sidebar-inner px-4 pt-3">
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
@@ -152,7 +152,7 @@ const SideBarComponent = (props = {}) => {
                   />
                 </div>
                 <div className="d-block">
-                  <h6>Hi, {username}</h6>
+                  <h6 className="text-dark" >Hi, {username}</h6>
                   <Button
                     as={Link}
                     variant="secondary"
@@ -185,6 +185,7 @@ const SideBarComponent = (props = {}) => {
                   title="Overview"
                   link={Routes.DashboardOverview.path}
                   icon={faChartPie}
+                  
                 />
                 <CollapsableNavItem
                   eventKey="orders/"
@@ -224,6 +225,7 @@ const SideBarComponent = (props = {}) => {
                   title="Overview"
                   link={Routes.DashboardOverview.path}
                   icon={faChartPie}
+                  className="card-img-top rounded-circle border-white"
                 />
                 <NavItem
                   title="POS Transactions"
